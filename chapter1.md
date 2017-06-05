@@ -209,6 +209,37 @@ public class Rec5 {
 }
 ```
 
+Single Recursion
+
+```java
+package com.example.recursive2;
+
+public class SingleRecursion {
+
+	public static long factorial(int num) {
+		if (num < 0) {
+			throw new IllegalArgumentException("Can't calculate factorial of negative");
+		}
+
+		if (num < 2) {
+			System.out.println("return 1");
+			return 1;
+		} else {
+			System.out.printf("return %d * factorial(%d)\n", num, num - 1);
+			return num * factorial(num - 1);
+		}
+	}
+
+	public static void main(String[] args) {
+		int num = 4;
+		System.out.printf("호출 factorial(%d)\n", num);
+		System.out.printf("결과 %d! = %d", num, factorial(num));
+	}
+
+}
+
+```
+
 Multiple Recursion
 
 ```java
@@ -357,7 +388,6 @@ public class MutualRecursion {
 호출 isOdd(0)
 return false
 5 is odd
-
 ```
 
 
