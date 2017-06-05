@@ -107,13 +107,12 @@ public class Rec3 {
 ```
 
 ```console
-	factorial(4, 1)
-	return (4 * factorial(3, 2))
-		return (3 * factorial(2, 3))
-			return (2 * factorial(1, 4))
-				return 1
+    factorial(4, 1)
+    return (4 * factorial(3, 2))
+        return (3 * factorial(2, 3))
+            return (2 * factorial(1, 4))
+                return 1
 result = 24
-
 ```
 
 Recursive Example 4 : Fibonacci Numbers
@@ -183,6 +182,12 @@ public class Rec4 {
         // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]
     }
 }
+```
+
+```console
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]
+
 ```
 
 Recursive Example 5
