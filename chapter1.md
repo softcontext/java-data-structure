@@ -1,5 +1,7 @@
 # 1. Recursive
 
+## 입문
+
 Recursive Example 1
 
 ```java
@@ -243,14 +245,16 @@ public class Rec5 {
 ```
 
 ```java
-	factorial(4)
-	return factorialLoop(4, 1, 2)
-		return factorialLoop(3, 4, 3)
-			return factorialLoop(2, 12, 4)
-				return factorialLoop(1, 24, 5)
-					return 24
+    factorial(4)
+    return factorialLoop(4, 1, 2)
+        return factorialLoop(3, 4, 3)
+            return factorialLoop(2, 12, 4)
+                return factorialLoop(1, 24, 5)
+                    return 24
 4! = 24
 ```
+
+## 구분
 
 Single Recursion
 
