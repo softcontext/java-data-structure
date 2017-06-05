@@ -67,7 +67,6 @@ hello 2
 hello 3
 hello 4
 hello 5
-
 ```
 
 Recursive Example 3
@@ -105,6 +104,16 @@ public class Rec3 {
         System.out.println("result = " + result);
     }
 }
+```
+
+```console
+	factorial(4, 1)
+	return (4 * factorial(3, 2))
+		return (3 * factorial(2, 3))
+			return (2 * factorial(1, 4))
+				return 1
+result = 24
+
 ```
 
 Recursive Example 4 : Fibonacci Numbers
