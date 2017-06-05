@@ -163,51 +163,55 @@ package com.example.recursive;
 
 public class Rec5 {
 
-	static int factorial(int number) {
-		if (number == 0) {
-			return 1;
-		}
-		
-		int sum = 1;
-		int depth = 1;
-		
-		System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", number, sum, depth + 1);
-		return factorialLoop(number, sum, depth + 1);
-	}
+    static int factorial(int number) {
+        if (number == 0) {
+            return 1;
+        }
 
-	static int factorialLoop(int currentNumber, int sum, int depth) {
-		if (currentNumber == 1) {
-			System.out.println(getDepth(depth) + "return " + sum);
-			return sum;
-		} else {
-			/*
-			 * 4! == 1 * 2 * 3 * 4 == 1 * 4 * 3 * 2 == 24
-			 * factorialLoop 메소드가 리턴하는 결과를 그대로 다시 리턴하므로
-			 * 메소드 호출 시 전달되는 파라미터 sum은 메소드 호출 시 마다 처리된 중간 값이다.
-			 */
-			System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", currentNumber - 1, sum * currentNumber, depth + 1);
-			return factorialLoop(currentNumber - 1, sum * currentNumber, depth + 1);
-		}
-	}
+        int sum = 1;
+        int depth = 1;
 
-	static String getDepth(int depth) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < depth; i++) {
-			sb.append("\t");
-		}
-		return sb.toString();
-	}
+        System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", number, sum, depth + 1);
+        return factorialLoop(number, sum, depth + 1);
+    }
 
-	public static void main(String[] args) {
-		int number = 4;
-		int depth = 1;
-		System.out.printf(getDepth(depth) + "factorial(%d)\n", number);
-		System.out.printf("%d! = %d", number, factorial(number));
-	}
+    static int factorialLoop(int currentNumber, int sum, int depth) {
+        if (currentNumber == 1) {
+            System.out.println(getDepth(depth) + "return " + sum);
+            return sum;
+        } else {
+            /*
+             * 4! == 1 * 2 * 3 * 4 == 1 * 4 * 3 * 2 == 24
+             * factorialLoop 메소드가 리턴하는 결과를 그대로 다시 리턴하므로
+             * 메소드 호출 시 전달되는 파라미터 sum은 메소드 호출 시 마다 처리된 중간 값이다.
+             */
+            System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", 
+                currentNumber - 1, sum * currentNumber, depth + 1);
+            return factorialLoop(currentNumber - 1, sum * currentNumber, depth + 1);
+        }
+    }
+
+    static String getDepth(int depth) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        int number = 4;
+        int depth = 1;
+        System.out.printf(getDepth(depth) + "factorial(%d)\n", number);
+        System.out.printf("%d! = %d", number, factorial(number));
+    }
 
 }
-
 ```
+
+
+
+
 
 
 
