@@ -216,28 +216,36 @@ package com.example.recursive2;
 
 public class SingleRecursion {
 
-	public static long factorial(int num) {
-		if (num < 0) {
-			throw new IllegalArgumentException("Can't calculate factorial of negative");
-		}
+    public static long factorial(int num) {
+        if (num < 0) {
+            throw new IllegalArgumentException("Can't calculate factorial of negative");
+        }
 
-		if (num < 2) {
-			System.out.println("return 1");
-			return 1;
-		} else {
-			System.out.printf("return %d * factorial(%d)\n", num, num - 1);
-			return num * factorial(num - 1);
-		}
-	}
+        if (num < 2) {
+            System.out.println("return 1");
+            return 1;
+        } else {
+            System.out.printf("return %d * factorial(%d)\n", num, num - 1);
+            return num * factorial(num - 1);
+        }
+    }
 
-	public static void main(String[] args) {
-		int num = 4;
-		System.out.printf("호출 factorial(%d)\n", num);
-		System.out.printf("결과 %d! = %d", num, factorial(num));
-	}
+    public static void main(String[] args) {
+        int num = 4;
+        System.out.printf("호출 factorial(%d)\n", num);
+        System.out.printf("결과 %d! = %d", num, factorial(num));
+    }
 
 }
+```
 
+```console
+호출 factorial(4)
+return 4 * factorial(3)
+return 3 * factorial(2)
+return 2 * factorial(1)
+return 1
+결과 4! = 24
 ```
 
 Multiple Recursion
