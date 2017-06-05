@@ -57,33 +57,33 @@ package com.example.recursive;
 
 public class Rec3 {
 
-	static int factorial(int n, int depth) {
-		if (n == 1) {
-			System.out.println(getDepth(depth) + "return 1");
-			return 1;
-		} else {
-			System.out.printf(getDepth(depth) + "return (%d * factorial(%d, %d))\n", n, n - 1, depth + 1);
-			return (n * factorial(n - 1, depth + 1));
-		}
-	}
+    static int factorial(int n, int depth) {
+        if (n == 1) {
+            System.out.println(getDepth(depth) + "return 1");
+            return 1;
+        } else {
+            System.out.printf(getDepth(depth) + "return (%d * factorial(%d, %d))\n", n, n - 1, depth + 1);
+            return (n * factorial(n - 1, depth + 1));
+        }
+    }
 
-	// 스택의 선후관계를 파악하기 위해서 들여쓰기를 한다.
-	private static String getDepth(int depth) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < depth; i++) {
-			sb.append("\t");
-		}
-		return sb.toString();
-	}
+    // 스택의 선후관계를 파악하기 위해서 들여쓰기를 한다.
+    private static String getDepth(int depth) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
 
-	public static void main(String[] args) {
-		int value = 4;
-		int depth = 1;
+    public static void main(String[] args) {
+        int value = 4;
+        int depth = 1;
 
-		System.out.printf(getDepth(depth) + "factorial(%d, %d)\n", value, depth);
-		int result = factorial(value, depth);
-		System.out.println("result = " + result);
-	}
+        System.out.printf(getDepth(depth) + "factorial(%d, %d)\n", value, depth);
+        int result = factorial(value, depth);
+        System.out.println("result = " + result);
+    }
 }
 ```
 
@@ -95,73 +95,119 @@ package com.example.recursive;
 import java.util.Arrays;
 
 public class Rec4 {
-	static int n1 = 0, n2 = 1;
-	static int n3 = 0;
+    static int n1 = 0, n2 = 1;
+    static int n3 = 0;
 
-	static void fibo(int count) {
-		// 0 and 1 출력
-		System.out.print(n1 + " " + n2);
+    static void fibo(int count) {
+        // 0 and 1 출력
+        System.out.print(n1 + " " + n2);
 
-		// 번호 2개는 이미 출력했으므로 -2를 한다.
-		printFibo(count - 2);
+        // 번호 2개는 이미 출력했으므로 -2를 한다.
+        printFibo(count - 2);
 
-		System.out.println();
+        System.out.println();
+    }
+
+    static void printFibo(int count) {
+        if (count > 0) {
+            // 앞 2개의 수를 더해서 3번째 수를 구한다음 출력한다.
+            n3 = n1 + n2;
+            System.out.print(" " + n3);
+
+            // 다음 작업을 위해 변수의 값을 바꾼다.
+            n1 = n2;
+            n2 = n3;
+            printFibo(count - 1);
+        }
+    }
+
+    public int[] getFibo(int count) {
+        int[] numbers = new int[count];
+        // 시드값 0, 1 을 할당한다.
+        numbers[0] = 0;
+        numbers[1] = 1;
+
+        // 번호 2개는 이미 할당했으므로 -2를 한다.
+        seekFibo(numbers, count - 2, 0, 1, 2);
+        return numbers;
+    }
+
+    private void seekFibo(int[] numbers, int count, int n1, int n2, int idx) {
+        if (count > 0) {
+            numbers[idx] = n1 + n2;
+
+            n1 = n2;
+            n2 = numbers[idx];
+            seekFibo(numbers, count - 1, n1, n2, idx + 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int count = 15;
+
+        fibo(count);
+        // 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
+
+        Rec4 seeker = new Rec4();
+        int[] numbers = seeker.getFibo(count);
+        System.out.println(Arrays.toString(numbers));
+        // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]
+    }
+}
+```
+
+Recursive Example 5
+
+```java
+package com.example.recursive;
+
+public class Rec5 {
+
+	static int factorial(int number) {
+		if (number == 0) {
+			return 1;
+		}
+		
+		int sum = 1;
+		int depth = 1;
+		
+		System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", number, sum, depth + 1);
+		return factorialLoop(number, sum, depth + 1);
 	}
 
-	static void printFibo(int count) {
-		if (count > 0) {
-			// 앞 2개의 수를 더해서 3번째 수를 구한다음 출력한다.
-			n3 = n1 + n2;
-			System.out.print(" " + n3);
-
-			// 다음 작업을 위해 변수의 값을 바꾼다.
-			n1 = n2;
-			n2 = n3;
-			printFibo(count - 1);
+	static int factorialLoop(int currentNumber, int sum, int depth) {
+		if (currentNumber == 1) {
+			System.out.println(getDepth(depth) + "return " + sum);
+			return sum;
+		} else {
+			/*
+			 * 4! == 1 * 2 * 3 * 4 == 1 * 4 * 3 * 2 == 24
+			 * factorialLoop 메소드가 리턴하는 결과를 그대로 다시 리턴하므로
+			 * 메소드 호출 시 전달되는 파라미터 sum은 메소드 호출 시 마다 처리된 중간 값이다.
+			 */
+			System.out.printf(getDepth(depth) + "return factorialLoop(%d, %d, %d)\n", currentNumber - 1, sum * currentNumber, depth + 1);
+			return factorialLoop(currentNumber - 1, sum * currentNumber, depth + 1);
 		}
 	}
 
-	public int[] getFibo(int count) {
-		int[] numbers = new int[count];
-		// 시드값 0, 1 을 할당한다.
-		numbers[0] = 0;
-		numbers[1] = 1;
-
-		// 번호 2개는 이미 할당했으므로 -2를 한다.
-		seekFibo(numbers, count - 2, 0, 1, 2);
-		return numbers;
-	}
-
-	private void seekFibo(int[] numbers, int count, int n1, int n2, int idx) {
-		if (count > 0) {
-			numbers[idx] = n1 + n2;
-
-			n1 = n2;
-			n2 = numbers[idx];
-			seekFibo(numbers, count - 1, n1, n2, idx + 1);
+	static String getDepth(int depth) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < depth; i++) {
+			sb.append("\t");
 		}
+		return sb.toString();
 	}
 
 	public static void main(String[] args) {
-		int count = 15;
-
-		fibo(count);
-		// 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
-
-		Rec4 seeker = new Rec4();
-		int[] numbers = seeker.getFibo(count);
-		System.out.println(Arrays.toString(numbers));
-		// [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]
+		int number = 4;
+		int depth = 1;
+		System.out.printf(getDepth(depth) + "factorial(%d)\n", number);
+		System.out.printf("%d! = %d", number, factorial(number));
 	}
+
 }
 
 ```
-
-
-
-
-
-
 
 
 
