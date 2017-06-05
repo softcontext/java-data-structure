@@ -25,6 +25,17 @@ public class Rec1 {
 }
 ```
 
+```console
+hello
+hello
+hello
+hello
+hello
+hello
+hello
+...
+```
+
 Recursive Example 2
 
 ```java
@@ -48,6 +59,15 @@ public class Rec2 {
         p();
     }
 }
+```
+
+```console
+hello 1
+hello 2
+hello 3
+hello 4
+hello 5
+
 ```
 
 Recursive Example 3
