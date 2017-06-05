@@ -187,7 +187,6 @@ public class Rec4 {
 ```console
 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]
-
 ```
 
 Recursive Example 5
@@ -241,6 +240,16 @@ public class Rec5 {
     }
 
 }
+```
+
+```java
+	factorial(4)
+	return factorialLoop(4, 1, 2)
+		return factorialLoop(3, 4, 3)
+			return factorialLoop(2, 12, 4)
+				return factorialLoop(1, 24, 5)
+					return 24
+4! = 24
 ```
 
 Single Recursion
