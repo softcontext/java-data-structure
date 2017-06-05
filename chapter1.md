@@ -254,7 +254,7 @@ public class Rec5 {
 4! = 24
 ```
 
-## 구분
+## 분류
 
 Single Recursion
 
@@ -511,6 +511,120 @@ return 24
 2, 12
 1, 24
 결과 4! = 24
+```
+
+## 용례
+
+Recursion Directory
+
+```java
+package com.example.recursive3;
+
+public class RecursionExampleDirectory {
+
+	public int getSize(Directory dir) {
+		int total = 0;
+
+		File[] files = dir.getFiles();
+		for (int i = 0; i < files.length; i++) {
+			// 파일객체의 getSize() 메소드는 바로 값을 리턴한다.
+			total += files[i].getSize();
+		}
+
+		// get sub directories and check them
+		Directory[] subDirs = dir.getDirectories();
+		for (int i = 0; i < subDirs.length; i++) {
+			// getSize() 메소드 호출은 재귀호출방식이다.
+			total += getSize(subDirs[i]);
+		}
+
+		return total;
+	}
+
+	public static int pow(int base, int exp) {
+		if (exp == 0) {
+			System.out.println("return 1");
+			return 1;
+		} else {
+			System.out.printf("return %d * pow(%d, %d)\n", base, base, exp - 1);
+			return base * pow(base, exp - 1);
+		}
+	}
+
+	public static void main(String[] args) {
+		Directory directory = new Directory();
+
+		RecursionExampleDirectory example = new RecursionExampleDirectory();
+		System.out.println(example.getSize(directory));
+		System.out.println();
+
+		System.out.printf("호출 pow(%d, %d)\n", 2, 3);
+		System.out.printf("%d의 %d제곱 = %d", 2, 3, RecursionExampleDirectory.pow(2, 3));
+	}
+}
+
+class Directory {
+	private Directory[] directories;
+	private File[] files;
+
+	public Directory() {
+		int numberOfSubDirs = (int) (Math.random() * 2);
+		System.out.println("numberOfSubDirs = " + numberOfSubDirs);
+		directories = new Directory[numberOfSubDirs];
+
+		int numberOfFiles = (int) (Math.random() * 3);
+		System.out.println("numberOfFiles = " + numberOfFiles);
+		files = new File[numberOfFiles];
+
+		for (int i = 0; i < files.length; i++) {
+			files[i] = new File(100);
+		}
+
+		for (int i = 0; i < directories.length; i++) {
+			directories[i] = new Directory();
+		}
+	}
+
+	public Directory[] getDirectories() {
+		return directories;
+	}
+
+	public File[] getFiles() {
+		return files;
+	}
+}
+
+class File {
+	private int size;
+
+	public File(int size) {
+		this.size = size;
+	}
+
+	public int getSize() {
+		return size;
+	}
+}
+
+```
+
+```console
+numberOfSubDirs = 1
+numberOfFiles = 0
+numberOfSubDirs = 1
+numberOfFiles = 0
+numberOfSubDirs = 1
+numberOfFiles = 1
+numberOfSubDirs = 0
+numberOfFiles = 0
+100
+
+호출 pow(2, 3)
+return 2 * pow(2, 2)
+return 2 * pow(2, 1)
+return 2 * pow(2, 0)
+return 1
+2의 3제곱 = 8
 ```
 
 
