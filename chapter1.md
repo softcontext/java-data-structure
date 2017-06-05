@@ -209,21 +209,44 @@ public class Rec5 {
 }
 ```
 
+Multiple Recursion
 
+```java
+package com.example.recursive2;
 
+public class MultipleRecursion {
 
+	public static long fibonacci(String flag, long idx) {
+		if (idx < 0) {
+			throw new IllegalArgumentException("Can't accept negative arguments");
+		}
 
+		if (idx < 2) {
+			System.out.println(flag + " return " + idx);
+			return idx;
+		} else {
+			// 메소드 호출 후 로직이 처리될 때 사용되는 지역변수는 개별적인 스택을 이용하므로
+			// 각각 메소드 호출마다 변수의 값은 다르고 메소드들 끼리 서로에게 영향을 미치지 않는다.
+			// 메소드 호출은 왼쪽부터 처리된다. 왼쪽 메소드가 촉발한 메소드 호출 체인이 끝나면 오른쪽 메소드가 호출된다.
+			System.out.printf("fibonacci(\"<<\", %d) + fibonacci(\">>\", %d)\n", idx - 1, idx - 2);
+			return fibonacci("<<", idx - 1) + fibonacci(">>", idx - 2);
+		}
+	}
 
+	public static void main(String[] args) {
+		/*
+		 * 0 1 1 2 3 5 ...
+		 */
+		int max = 6;
+		for (int i = 0; i < max; i++) {
+			System.out.printf("호출 fibonacci(\"--\", %d)\n", i);
+			long x = fibonacci("--", i);
+			System.out.println("결과 " + x + "\n");
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
+```
 
 
 
