@@ -1,3 +1,4 @@
-# My Awesome Book
+# Data Structure based on Java
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+This book is for beginner or students. Appreciate your support.
+
