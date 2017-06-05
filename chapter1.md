@@ -299,7 +299,53 @@ fibonacci("<<", 1) + fibonacci(">>", 0)
 >> return 0
 >> return 1
 결과 5
+```
 
+Mutual Recursion
+
+```java
+package com.example.recursive2;
+
+public class MutualRecursion {
+
+	public static boolean isOdd(int num) {
+		if (num < 0) {
+			throw new IllegalArgumentException("Can't accept negative arguments");
+		}
+
+		if (num == 0) {
+			System.out.println("return false");
+		} else {
+			System.out.printf("호출 isEven(%d)\n", num - 1);
+		}
+		return (num == 0) ? false : isEven(num - 1);
+	}
+
+	public static boolean isEven(int num) {
+		if (num < 0) {
+			throw new IllegalArgumentException("Can't accept negative arguments");
+		}
+
+		if (num == 0) {
+			System.out.println("return true");
+		} else {
+			System.out.printf("호출 isOdd(%d)\n", num - 1);
+		}
+		return (num == 0) ? true : isOdd(num - 1);
+	}
+
+	public static void main(String[] args) {
+		int num = 5;
+
+		System.out.printf("호출 isEven(%d)\n", num);
+		if (isEven(num)) {
+			System.out.println(num + " is even");
+		} else {
+			System.out.println(num + " is odd");
+		}
+	}
+
+}
 
 ```
 
