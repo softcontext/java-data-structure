@@ -1,5 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* [1. Recursive](chapter1.md)
+* [Chapter 1. Recursive](chapter1.md)
 

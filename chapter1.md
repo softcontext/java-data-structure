@@ -1,4 +1,4 @@
-# 1. Recursive
+# Chapter 1. Recursive
 
 ## 입문
 
@@ -451,51 +451,50 @@ Tail Recursion
 package com.example.recursive2;
 
 public class TailRecursion {
-	/*
-	 * Single Recursion 로직은
-	 * 자식 메소드가 자신의 로직을 처리한 후 리턴한 값을 부모 메소드가 받아서 사용한다.
-	 * 
-	 * 반대로, 
-	 * Tail Recursion 로직은
-	 * 부모 메소드가 자신의 로직을 처리한 후 구한 값을 자식 메소드에게 전달하고 자식 메소드가 값을 받아서 사용한다.
-	 */
-	public static int tailFactorial(int num, int... prev) {
-		if (num < 0) {
-			throw new IllegalArgumentException("Can't calculate factorial of negative");
-		}
+    /*
+     * Single Recursion 로직은
+     * 자식 메소드가 자신의 로직을 처리한 후 리턴한 값을 부모 메소드가 받아서 사용한다.
+     * 
+     * 반대로, 
+     * Tail Recursion 로직은
+     * 부모 메소드가 자신의 로직을 처리한 후 구한 값을 자식 메소드에게 전달하고 자식 메소드가 값을 받아서 사용한다.
+     */
+    public static int tailFactorial(int num, int... prev) {
+        if (num < 0) {
+            throw new IllegalArgumentException("Can't calculate factorial of negative");
+        }
 
-		// 메소드 사용 측에 편의를 위해서 두 번째 파라미터를 주지 않아도 되도록 코드적으로 처리한다.
-		int sum = (prev.length > 0) ? (int) prev[0] : 1;
+        // 메소드 사용 측에 편의를 위해서 두 번째 파라미터를 주지 않아도 되도록 코드적으로 처리한다.
+        int sum = (prev.length > 0) ? (int) prev[0] : 1;
 
-		if (num < 2) {
-			System.out.println("return " + sum);
-			return sum;
-		} else {
-			System.out.printf("tailFactorial(%d, %d)\n", num - 1, num * sum);
-			return tailFactorial(num - 1, num * sum);
-		}
-	}
+        if (num < 2) {
+            System.out.println("return " + sum);
+            return sum;
+        } else {
+            System.out.printf("tailFactorial(%d, %d)\n", num - 1, num * sum);
+            return tailFactorial(num - 1, num * sum);
+        }
+    }
 
-	public static void main(String[] args) {
-		int num = 4;
-		System.out.printf("호출 tailFactorial(%d)\n", num);
-		System.out.printf("결과 %d! = %d\n\n", num, tailFactorial(num));
+    public static void main(String[] args) {
+        int num = 4;
+        System.out.printf("호출 tailFactorial(%d)\n", num);
+        System.out.printf("결과 %d! = %d\n\n", num, tailFactorial(num));
 
-		/*
-		 * Tail Recursion 로직은 
-		 * 결과적으로 for문으로 처리하는 것과 같다.
-		 */
-		System.out.println("반복문 시작");
-		int sum = 1;
-		for (int i = num; i > 0; i--) {
-			System.out.printf("%d, %d\n", i, sum);
-			sum *= i;
-		}
-		System.out.printf("결과 %d! = %d", num, sum);
-	}
-	
+        /*
+         * Tail Recursion 로직은 
+         * 결과적으로 for문으로 처리하는 것과 같다.
+         */
+        System.out.println("반복문 시작");
+        int sum = 1;
+        for (int i = num; i > 0; i--) {
+            System.out.printf("%d, %d\n", i, sum);
+            sum *= i;
+        }
+        System.out.printf("결과 %d! = %d", num, sum);
+    }
+
 }
-
 ```
 
 ```console
