@@ -633,49 +633,48 @@ package com.example.recursive3;
 
 public class RecursiveLogic {
 
-	static int tailRecursivePlus(int number, int... prev) {
-		int sum = prev.length > 0 ? prev[0] : 0;
-		sum += number;
+    static int tailRecursivePlus(int number, int... prev) {
+        int sum = prev.length > 0 ? prev[0] : 0;
+        sum += number;
 
-		if (number == 1) {
-			return sum;
-		}
-		return tailRecursivePlus(number - 1, sum);
-	}
+        if (number == 1) {
+            return sum;
+        }
+        return tailRecursivePlus(number - 1, sum);
+    }
 
-	static int singleRecursivePlus1(int number) {
-		if (number == 1) {
-			return number;
-		}
-		return number + singleRecursivePlus1(number - 1);
-	}
+    static int singleRecursivePlus1(int number) {
+        if (number == 1) {
+            return number;
+        }
+        return number + singleRecursivePlus1(number - 1);
+    }
 
-	static int singleRecursivePlus2(int number, int max) {
-		if (number == max) {
-			return number;
-		}
-		return number + singleRecursivePlus2(number + 1, max);
-	}
+    static int singleRecursivePlus2(int number, int max) {
+        if (number == max) {
+            return number;
+        }
+        return number + singleRecursivePlus2(number + 1, max);
+    }
 
-	static int singleRecursivePlus3(int max) {
-		return recursive(0, max);
-	}
+    static int singleRecursivePlus3(int max) {
+        return recursive(0, max);
+    }
 
-	static int recursive(int number, int max) {
-		if (number == max) {
-			return 10;
-		}
-		return number + recursive(number + 1, max);
-	}
+    static int recursive(int number, int max) {
+        if (number == max) {
+            return 10;
+        }
+        return number + recursive(number + 1, max);
+    }
 
-	public static void main(String[] args) {
-		System.out.println("sum = " + tailRecursivePlus(10));
-		System.out.println("sum = " + singleRecursivePlus1(10));
-		System.out.println("sum = " + singleRecursivePlus2(0, 10));
-		System.out.println("sum = " + singleRecursivePlus3(10));
-	}
+    public static void main(String[] args) {
+        System.out.println("sum = " + tailRecursivePlus(10));
+        System.out.println("sum = " + singleRecursivePlus1(10));
+        System.out.println("sum = " + singleRecursivePlus2(0, 10));
+        System.out.println("sum = " + singleRecursivePlus3(10));
+    }
 }
-
 ```
 
 ```console
