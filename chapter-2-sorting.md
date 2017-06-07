@@ -212,7 +212,7 @@ Asc
 [1, 2, 3, 4, 5]
 ```
 
-Selection Sort
+## Selection Sort
 
 ```java
 package com.example.sorting;
@@ -220,84 +220,79 @@ package com.example.sorting;
 import java.util.Arrays;
 
 public class MySelectionSort2 {
-	private static final boolean LOG_ON = true;
+    private static final boolean LOG_ON = true;
 
-	public void sort(int[] numbers, boolean... bs) {
-		int min = 0;
+    public void sort(int[] numbers, boolean... bs) {
+        int min = 0;
 
-		for (int i = 0; i < numbers.length - 1; i++) {
-			if (LOG_ON) System.out.println("\t기준 i = " + i);
-			min = i;
-			if (LOG_ON) System.out.println("\t초기 min = " + min);
-			
-			// 가장 작은 값의 인덱스를 찾아서 변수 min에 담는다.
-			for (int j = i + 1; j < numbers.length; j++) {
-				if (numbers[min] > numbers[j]) {
-					min = j;
-					if (LOG_ON) System.out.println("\t교환 min = " + min);
-				}
-			}
-			// 기준위치의 아이템을 가장 작은 아이템과 교환한다.
-			int temp = numbers[i];
-			numbers[i] = numbers[min];
-			numbers[min] = temp;
-			
-			if (LOG_ON) System.out.println("\t" + Arrays.toString(numbers));
-			if (LOG_ON) System.out.printf("\t--- %d cycle --- \n", (i + 1));
-		}
+        for (int i = 0; i < numbers.length - 1; i++) {
+            if (LOG_ON) System.out.println("\t기준 i = " + i);
+            min = i;
+            if (LOG_ON) System.out.println("\t초기 min = " + min);
 
-	}
+            // 가장 작은 값의 인덱스를 찾아서 변수 min에 담는다.
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[min] > numbers[j]) {
+                    min = j;
+                    if (LOG_ON) System.out.println("\t교환 min = " + min);
+                }
+            }
+            // 기준위치의 아이템을 가장 작은 아이템과 교환한다.
+            int temp = numbers[i];
+            numbers[i] = numbers[min];
+            numbers[min] = temp;
 
-	public static void main(String[] args) {
-		int[] numbers = { 5, 4, 3, 2, 1 };
-		System.out.println("Original");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println();
+            if (LOG_ON) System.out.println("\t" + Arrays.toString(numbers));
+            if (LOG_ON) System.out.printf("\t--- %d cycle --- \n", (i + 1));
+        }
 
-		MySelectionSort2 sorter = new MySelectionSort2();
+    }
 
-		sorter.sort(numbers);
-		System.out.println("Asc");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println();
-	}
+    public static void main(String[] args) {
+        int[] numbers = { 5, 4, 3, 2, 1 };
+        System.out.println("Original");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println();
+
+        MySelectionSort2 sorter = new MySelectionSort2();
+
+        sorter.sort(numbers);
+        System.out.println("Asc");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println();
+    }
 }
-
 ```
 
 ```
 Original
 [5, 4, 3, 2, 1]
 
-	기준 i = 0
-	초기 min = 0
-	교환 min = 1
-	교환 min = 2
-	교환 min = 3
-	교환 min = 4
-	[1, 4, 3, 2, 5]
-	--- 1 cycle --- 
-	기준 i = 1
-	초기 min = 1
-	교환 min = 2
-	교환 min = 3
-	[1, 2, 3, 4, 5]
-	--- 2 cycle --- 
-	기준 i = 2
-	초기 min = 2
-	[1, 2, 3, 4, 5]
-	--- 3 cycle --- 
-	기준 i = 3
-	초기 min = 3
-	[1, 2, 3, 4, 5]
-	--- 4 cycle --- 
+    기준 i = 0
+    초기 min = 0
+    교환 min = 1
+    교환 min = 2
+    교환 min = 3
+    교환 min = 4
+    [1, 4, 3, 2, 5]
+    --- 1 cycle --- 
+    기준 i = 1
+    초기 min = 1
+    교환 min = 2
+    교환 min = 3
+    [1, 2, 3, 4, 5]
+    --- 2 cycle --- 
+    기준 i = 2
+    초기 min = 2
+    [1, 2, 3, 4, 5]
+    --- 3 cycle --- 
+    기준 i = 3
+    초기 min = 3
+    [1, 2, 3, 4, 5]
+    --- 4 cycle --- 
 Asc
 [1, 2, 3, 4, 5]
-
-
 ```
-
-
 
 
 
