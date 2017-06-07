@@ -294,5 +294,78 @@ Asc
 [1, 2, 3, 4, 5]
 ```
 
+Binary Search
+
+```java
+package com.example.sorting;
+
+import java.util.Arrays;
+
+public class MyBinarySearch {
+
+	public int search(int[] numbers, int value) {
+		int low = 0;
+		int high = numbers.length - 1;
+
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			System.out.printf("low=%d, high=%d, mid=%d ==> ", low, high, mid);
+
+			if (value > numbers[mid]) {
+				low = mid + 1;
+			} else if (value < numbers[mid]) {
+				high = mid - 1;
+			} else {
+				System.out.printf("대상 찾음 return %d\n", mid);
+				return mid;
+			}
+
+			System.out.printf("low=%d, high=%d\n", low, high);
+		}
+
+		// 대상 찾지 못함
+		return -1;
+	}
+
+	public static void main(String[] args) {
+		int[] numbers = { 10, 8, 4, 6, 3, 5, 2, 7, 9, 1 };
+
+		// 바이너리 서치는 대상 배열이 정렬되어 있다는 것을 전제로 한다.
+		Arrays.sort(numbers);
+
+		System.out.println("Target");
+		System.out.println(Arrays.toString(numbers));
+		System.out.println("\n");
+
+		MyBinarySearch finder = new MyBinarySearch();
+
+		int value = 7;
+		System.out.println("value = " + value);
+		System.out.println();
+
+		int idx = finder.search(numbers, value);
+		System.out.println();
+		System.out.println("idx = " + idx);
+	}
+}
+
+```
+
+```
+Target
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+value = 7
+
+low=0, high=9, mid=4 ==> low=5, high=9
+low=5, high=9, mid=7 ==> low=5, high=6
+low=5, high=6, mid=5 ==> low=6, high=6
+low=6, high=6, mid=6 ==> 대상 찾음 return 6
+
+idx = 6
+
+```
+
 
 
