@@ -133,7 +133,7 @@ public class BubleSort {
 결과 [5, 4, 3, 2, 1]
 ```
 
-Insertion Sort
+## Insertion Sort
 
 ```java
 package com.example.sorting;
@@ -141,41 +141,126 @@ package com.example.sorting;
 import java.util.Arrays;
 
 public class MyInsertionSort {
+    private static final boolean LOG_ON = true;
+
+    public void sort(int[] numbers) {
+        int temp, j;
+
+        for (int i = 0; i < numbers.length; i++) {
+
+            temp = numbers[i];
+            if (LOG_ON) System.out.println("\t시작 temp = " + temp);
+            for (j = i; j > 0 && numbers[j - 1] > temp; j--) {
+                // 앞에 값이 기준 값(temp)보다 큰 경우 앞에 값을 뒤로 옮긴다.
+                // temp가 보유한 값을 넣을 자리를 계산하기 위해서 j-- 한다.
+                numbers[j] = numbers[j - 1];
+                if (LOG_ON) System.out.println("\t교환 " + Arrays.toString(numbers));
+            }
+            // temp가 보유한 값을 계산된 위치에 삽입한다.
+            numbers[j] = temp;
+
+            if (LOG_ON) System.out.println("\t완료 " + Arrays.toString(numbers));
+            if (LOG_ON) System.out.printf("\t------------ %d cycle ------------ \n", (i + 1));
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = { 5, 4, 3, 2, 1 };
+        System.out.println("Original");
+        System.out.println(Arrays.toString(numbers) + "\n");
+
+        MyInsertionSort sorter = new MyInsertionSort();
+
+        sorter.sort(numbers);
+        System.out.println("Asc");
+        System.out.println(Arrays.toString(numbers) + "\n");
+    }
+
+}
+```
+
+```
+Original
+[5, 4, 3, 2, 1]
+
+    시작 temp = 5
+    완료 [5, 4, 3, 2, 1]
+    ------------ 1 cycle ------------ 
+    시작 temp = 4
+    교환 [5, 5, 3, 2, 1]
+    완료 [4, 5, 3, 2, 1]
+    ------------ 2 cycle ------------ 
+    시작 temp = 3
+    교환 [4, 5, 5, 2, 1]
+    교환 [4, 4, 5, 2, 1]
+    완료 [3, 4, 5, 2, 1]
+    ------------ 3 cycle ------------ 
+    시작 temp = 2
+    교환 [3, 4, 5, 5, 1]
+    교환 [3, 4, 4, 5, 1]
+    교환 [3, 3, 4, 5, 1]
+    완료 [2, 3, 4, 5, 1]
+    ------------ 4 cycle ------------ 
+    시작 temp = 1
+    교환 [2, 3, 4, 5, 5]
+    교환 [2, 3, 4, 4, 5]
+    교환 [2, 3, 3, 4, 5]
+    교환 [2, 2, 3, 4, 5]
+    완료 [1, 2, 3, 4, 5]
+    ------------ 5 cycle ------------ 
+Asc
+[1, 2, 3, 4, 5]
+```
+
+Selection Sort
+
+```java
+package com.example.sorting;
+
+import java.util.Arrays;
+
+public class MySelectionSort2 {
 	private static final boolean LOG_ON = true;
 
-	public void sort(int[] numbers) {
-		int temp, j;
+	public void sort(int[] numbers, boolean... bs) {
+		int min = 0;
 
-		for (int i = 0; i < numbers.length; i++) {
-
-			temp = numbers[i];
-			if (LOG_ON) System.out.println("\t시작 temp = " + temp);
-			for (j = i; j > 0 && numbers[j - 1] > temp; j--) {
-				// 앞에 값이 기준 값(temp)보다 큰 경우 앞에 값을 뒤로 옮긴다.
-				// temp가 보유한 값을 넣을 자리를 계산하기 위해서 j-- 한다.
-				numbers[j] = numbers[j - 1];
-				if (LOG_ON) System.out.println("\t교환 " + Arrays.toString(numbers));
+		for (int i = 0; i < numbers.length - 1; i++) {
+			if (LOG_ON) System.out.println("\t기준 i = " + i);
+			min = i;
+			if (LOG_ON) System.out.println("\t초기 min = " + min);
+			
+			// 가장 작은 값의 인덱스를 찾아서 변수 min에 담는다.
+			for (int j = i + 1; j < numbers.length; j++) {
+				if (numbers[min] > numbers[j]) {
+					min = j;
+					if (LOG_ON) System.out.println("\t교환 min = " + min);
+				}
 			}
-			// temp가 보유한 값을 계산된 위치에 삽입한다.
-			numbers[j] = temp;
-
-			if (LOG_ON) System.out.println("\t완료 " + Arrays.toString(numbers));
-			if (LOG_ON) System.out.printf("\t------------ %d cycle ------------ \n", (i + 1));
+			// 기준위치의 아이템을 가장 작은 아이템과 교환한다.
+			int temp = numbers[i];
+			numbers[i] = numbers[min];
+			numbers[min] = temp;
+			
+			if (LOG_ON) System.out.println("\t" + Arrays.toString(numbers));
+			if (LOG_ON) System.out.printf("\t--- %d cycle --- \n", (i + 1));
 		}
+
 	}
 
 	public static void main(String[] args) {
 		int[] numbers = { 5, 4, 3, 2, 1 };
 		System.out.println("Original");
-		System.out.println(Arrays.toString(numbers) + "\n");
+		System.out.println(Arrays.toString(numbers));
+		System.out.println();
 
-		MyInsertionSort sorter = new MyInsertionSort();
+		MySelectionSort2 sorter = new MySelectionSort2();
 
 		sorter.sort(numbers);
 		System.out.println("Asc");
-		System.out.println(Arrays.toString(numbers) + "\n");
+		System.out.println(Arrays.toString(numbers));
+		System.out.println();
 	}
-
 }
 
 ```
@@ -184,36 +269,35 @@ public class MyInsertionSort {
 Original
 [5, 4, 3, 2, 1]
 
-	시작 temp = 5
-	완료 [5, 4, 3, 2, 1]
-	------------ 1 cycle ------------ 
-	시작 temp = 4
-	교환 [5, 5, 3, 2, 1]
-	완료 [4, 5, 3, 2, 1]
-	------------ 2 cycle ------------ 
-	시작 temp = 3
-	교환 [4, 5, 5, 2, 1]
-	교환 [4, 4, 5, 2, 1]
-	완료 [3, 4, 5, 2, 1]
-	------------ 3 cycle ------------ 
-	시작 temp = 2
-	교환 [3, 4, 5, 5, 1]
-	교환 [3, 4, 4, 5, 1]
-	교환 [3, 3, 4, 5, 1]
-	완료 [2, 3, 4, 5, 1]
-	------------ 4 cycle ------------ 
-	시작 temp = 1
-	교환 [2, 3, 4, 5, 5]
-	교환 [2, 3, 4, 4, 5]
-	교환 [2, 3, 3, 4, 5]
-	교환 [2, 2, 3, 4, 5]
-	완료 [1, 2, 3, 4, 5]
-	------------ 5 cycle ------------ 
+	기준 i = 0
+	초기 min = 0
+	교환 min = 1
+	교환 min = 2
+	교환 min = 3
+	교환 min = 4
+	[1, 4, 3, 2, 5]
+	--- 1 cycle --- 
+	기준 i = 1
+	초기 min = 1
+	교환 min = 2
+	교환 min = 3
+	[1, 2, 3, 4, 5]
+	--- 2 cycle --- 
+	기준 i = 2
+	초기 min = 2
+	[1, 2, 3, 4, 5]
+	--- 3 cycle --- 
+	기준 i = 3
+	초기 min = 3
+	[1, 2, 3, 4, 5]
+	--- 4 cycle --- 
 Asc
 [1, 2, 3, 4, 5]
 
 
 ```
+
+
 
 
 
