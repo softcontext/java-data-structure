@@ -367,6 +367,8 @@ idx = 6
 
 ## Shell Sort
 
+셸 정렬은 주어진 자료 리스트를 특정 매개변수 값의 길이를 갖는 부파일로 쪼개서, 각 부파일에서 정렬을 수행한다. 즉, 매개변수 값에 따라 부파일이 발생하며, 매개변수값을 줄이며 이 과정을 반복하고 결국 매개변수 값이 1이면 정렬은 완성된다.
+
 ```java
 package com.example.sorting;
 
@@ -500,6 +502,186 @@ intervalSort(0, 5, 1)
 
 ------------------------------------------------
 [1, 2, 3, 4, 5, 6]
+```
+
+## Quick Sort
+
+```
+package com.example.sorting;
+
+import java.util.Arrays;
+
+public class MyQuickSort {
+	private int[] numbers;
+
+	private void sort(int[] numbers) {
+		this.numbers = numbers;
+
+		System.out.printf("sort(%d, %d)\n", 0, numbers.length - 1);
+		sort(0, numbers.length - 1, 0);
+	}
+
+	public void sort(int left, int right, int depth) {
+		System.out.println("-------------------------------------- 시작");
+		System.out.println(Arrays.toString(numbers));
+
+		int leftHolder = left;
+		int rightHolder = right;
+		int low = left;
+		int high = right;
+		int pivot = numbers[left];
+
+		while (low < high) {
+			// 피봇보다 작은 숫자 찾기
+			while (low < high && pivot <= numbers[high]) {
+				System.out.println("high--");
+				high--;
+			}
+
+			if (high != low) {
+				numbers[low] = numbers[high];
+				System.out.println("피봇보다 작은 숫자 찾기\t" + Arrays.toString(numbers));
+			}
+
+			// 피봇보다 큰 숫자 찾기
+			while (low < high && pivot >= numbers[low]) {
+				System.out.println("low++");
+				low++;
+			}
+
+			if (low != high) {
+				numbers[high] = numbers[low];
+				System.out.println("피봇보다 큰 숫자 찾기\t" + Arrays.toString(numbers));
+			}
+
+			System.out.printf("------- low=%d < high=%d -------\n", low, high);
+		}
+
+		numbers[low] = pivot;
+		/*
+		 * 이제, 피봇보다 작은 값은 왼쪽에, 큰 값은 오른쪽에 위치한다.
+		 */
+		System.out.println(Arrays.toString(numbers));
+		System.out.printf("leftHolder=%d, rightHolder=%d, low=%d, high=%d\n", 
+			leftHolder, rightHolder, low, high);
+		System.out.println("-------------------------------------- 종료");
+		System.out.println();
+
+		String taps = getTaps(depth);
+
+		if (leftHolder < low) {
+			// 피봇보다 작은 숫자들을 대상으로 정렬을 진행한다.
+			System.out.printf(taps + "<< sort(%d, %d)\n", leftHolder, low - 1);
+			sort(leftHolder, low - 1, depth + 1);
+		} else {
+			System.out.println(taps + "<< [ x ]");
+		}
+
+		if (low < rightHolder) {
+			// 피봇보다 큰 숫자들을 대상으로 정렬을 진행한다.
+			System.out.printf(taps + ">> sort(%d, %d)\n", low + 1, rightHolder);
+			sort(low + 1, rightHolder, depth + 1);
+		} else {
+			System.out.println(taps + ">> [ x ]");
+		}
+
+	}
+
+	private String getTaps(int depth) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i <= depth; i++) {
+			sb.append("\t");
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) {
+		int[] numbers = { 3, 5, 2, 4, 1 };
+		System.out.println("Original");
+		System.out.println(Arrays.toString(numbers));
+		System.out.println("\n");
+
+		MyQuickSort sorter = new MyQuickSort();
+		sorter.sort(numbers);
+		
+		System.out.println("\n");
+		System.out.println("==========================================");
+		System.out.println("Asc");
+		System.out.println(Arrays.toString(numbers));
+		System.out.println("\n");
+	}
+
+}
+
+```
+
+```
+Original
+[3, 5, 2, 4, 1]
+
+
+sort(0, 4)
+-------------------------------------- 시작
+[3, 5, 2, 4, 1]
+피봇보다 작은 숫자 찾기	[1, 5, 2, 4, 1]
+low++
+피봇보다 큰 숫자 찾기	[1, 5, 2, 4, 5]
+------- low=1 < high=4 -------
+high--
+high--
+피봇보다 작은 숫자 찾기	[1, 2, 2, 4, 5]
+low++
+------- low=2 < high=2 -------
+[1, 2, 3, 4, 5]
+leftHolder=0, rightHolder=4, low=2, high=2
+-------------------------------------- 종료
+
+	<< sort(0, 1)
+-------------------------------------- 시작
+[1, 2, 3, 4, 5]
+high--
+------- low=0 < high=0 -------
+[1, 2, 3, 4, 5]
+leftHolder=0, rightHolder=1, low=0, high=0
+-------------------------------------- 종료
+
+		<< [ x ]
+		>> sort(1, 1)
+-------------------------------------- 시작
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+leftHolder=1, rightHolder=1, low=1, high=1
+-------------------------------------- 종료
+
+			<< [ x ]
+			>> [ x ]
+	>> sort(3, 4)
+-------------------------------------- 시작
+[1, 2, 3, 4, 5]
+high--
+------- low=3 < high=3 -------
+[1, 2, 3, 4, 5]
+leftHolder=3, rightHolder=4, low=3, high=3
+-------------------------------------- 종료
+
+		<< [ x ]
+		>> sort(4, 4)
+-------------------------------------- 시작
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+leftHolder=4, rightHolder=4, low=4, high=4
+-------------------------------------- 종료
+
+			<< [ x ]
+			>> [ x ]
+
+
+==========================================
+Asc
+[1, 2, 3, 4, 5]
+
+
+
 ```
 
 
