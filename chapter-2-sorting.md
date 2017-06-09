@@ -691,7 +691,7 @@ Asc
 
 ## Merge Sort
 
-합병 정렬은 다음과 같이 작동한다. 리스트의 길이가 0 또는 1이면 이미 정렬된 것으로 본다. 그렇지 않은 경우에는 정렬되지 않은 리스트를 절반으로 잘라 비슷한 크기의 두 부분 리스트로 나눈다. 각 부분 리스트를 재귀적으로 합병 정렬을 이용해 정렬한다. 두 부분 리스트를 다시 하나의 정렬된 리스트로 합병한다.
+합병 정렬은 다음과 같이 작동한다. 리스트의 길이가 0 또는 1이면 이미 정렬된 것으로 본다. 그렇지 않은 경우에는 정렬되지 않은 리스트를 절반으로 잘라 비슷한 크기의 두 부분 리스트로 나눈다. 각 부분 리스트를 재귀적으로 합병 정렬을 이용해 정렬한다. 두 부분 리스트를 다시 하나의 정렬된 리스트로 합병한다.
 
 ```java
 package com.example.sorting;
@@ -700,126 +700,125 @@ import java.util.Arrays;
 
 public class MyMergeSort2 {
 
-	private int[] numbers;
+    private int[] numbers;
 
-	private void sort(int[] numbers) {
-		this.numbers = numbers;
+    private void sort(int[] numbers) {
+        this.numbers = numbers;
 
-		System.out.printf("divide(%d, %d)\n", 0, numbers.length - 1);
-		
-		int depth = 0;
-		divide(0, numbers.length - 1, depth);
-	}
+        System.out.printf("divide(%d, %d)\n", 0, numbers.length - 1);
 
-	private void divide(int left, int right, int depth) {
-		String taps = getTaps(depth);
+        int depth = 0;
+        divide(0, numbers.length - 1, depth);
+    }
 
-		if (left < right) {
-			int mid = (left + right) / 2;
+    private void divide(int left, int right, int depth) {
+        String taps = getTaps(depth);
 
-			System.out.printf(taps + "<< divide(%d, %d)\n", left, mid);
-			divide(left, mid, depth + 1);
+        if (left < right) {
+            int mid = (left + right) / 2;
 
-			System.out.printf(taps + ">> divide(%d, %d)\n", mid + 1, right);
-			divide(mid + 1, right, depth + 1);
+            System.out.printf(taps + "<< divide(%d, %d)\n", left, mid);
+            divide(left, mid, depth + 1);
 
-			System.out.printf(taps + "++ merge(left=%d, mid=%d, right=%d)\n", left, mid, right);
-			merge(left, mid, right, depth);
-		}
-	}
+            System.out.printf(taps + ">> divide(%d, %d)\n", mid + 1, right);
+            divide(mid + 1, right, depth + 1);
 
-	private void merge(int left, int mid, int right, int depth) {
-		String taps = getTaps(depth);
-		
-		// 작업대상 중 왼쪽 부분의 시작을 가리키는 인덱스
-		int i = left;
-		// 작업대상 중 오른쪽 부분의 시작을 가리키는 인덱스
-		int j = mid + 1;
-		// 임시배열에 얼마나 옮겼는지 체크하는 인덱스
-		int k = left;
-		
-		int[] tempArray = new int[numbers.length];
-		
-		System.out.println(taps + "+----------------+ 작은 값을 임시배열에 담기");
-		System.out.printf(taps + "%s, i=%d, j=mid+1=%d, k=%d\n", Arrays.toString(numbers), i, j, k);
-		while (i <= mid && j <= right) {
-			// 작은 값을 임시배열에 넣는다.
-			System.out.printf(taps + "if (numbers[%d]=%d < numbers[%d]=%d)\n", 
-				i, numbers[i], j, numbers[j]);
-			if (numbers[i] < numbers[j]) {
-				tempArray[k] = numbers[i];
-				System.out.printf(taps + "%s, i++\n", Arrays.toString(tempArray));
-				i++;
-			} else {
-				tempArray[k] = numbers[j];
-				System.out.printf(taps + "%s, j++\n", Arrays.toString(tempArray));
-				j++;
-			}
-			k++;
-			System.out.println(taps + "k++");
-			System.out.println(taps + "------------------");
-			System.out.printf(taps + "%s, i=%d, j=%d, k=%d\n", Arrays.toString(tempArray), i, j, k);
-		}
-		System.out.println(taps + "+----------------+ 작은 값을 임시배열에 담기 작업 끝");
-		System.out.printf(taps + "%s, i=%d, j=%d, k=%d, mid=%d\n", Arrays.toString(tempArray), i, j, k, mid);
-		
-		System.out.println(taps + "================== 나머지 임시배열에 담기");
-		// 값이 커서 넣지 못한 값을 임시배열에 넣는다.
-		// i > mid 라는 것은 상대적으로 j가 가리키는 값을 넣지 못했다는 것을 의미한다.
-		System.out.printf(taps + "if (i=%d > mid=%d)\n", i, mid);
-		if (i > mid) {
-			for (int m = j; m <= right; m++) {
-				tempArray[k] = numbers[m];
-				k++;
-				
-				System.out.println(taps + "k++");
-				System.out.printf(taps + "오른쪽 %s\n", Arrays.toString(tempArray));
-			}
-		} else {
-			for (int m = i; m <= mid; m++) {
-				tempArray[k] = numbers[m];
-				k++;
-				
-				System.out.println(taps + "k++");
-				System.out.printf(taps + "왼 쪽 %s\n", Arrays.toString(tempArray));
-			}
-		}
-		System.out.println(taps + "~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기");
-		
-		// 임시배열의 값을 타겟배열에 덮어쓴다.
-		for (int m = left; m <= right; m++) {
-			numbers[m] = tempArray[m];
-		}
-		
-		System.out.printf(taps + "%s\n", Arrays.toString(numbers));
-	}
+            System.out.printf(taps + "++ merge(left=%d, mid=%d, right=%d)\n", left, mid, right);
+            merge(left, mid, right, depth);
+        }
+    }
 
-	private String getTaps(int depth) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i <= depth; i++) {
-			sb.append("\t");
-		}
-		return sb.toString();
-	}
+    private void merge(int left, int mid, int right, int depth) {
+        String taps = getTaps(depth);
 
-	public static void main(String[] args) {
-		int[] numbers = { 3, 5, 2, 4, 1 };
+        // 작업대상 중 왼쪽 부분의 시작을 가리키는 인덱스
+        int i = left;
+        // 작업대상 중 오른쪽 부분의 시작을 가리키는 인덱스
+        int j = mid + 1;
+        // 임시배열에 얼마나 옮겼는지 체크하는 인덱스
+        int k = left;
 
-		System.out.println("Original");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println("\n");
+        int[] tempArray = new int[numbers.length];
 
-		MyMergeSort2 sorter = new MyMergeSort2();
-		sorter.sort(numbers);
-		
-		System.out.println("\n");
-		System.out.println("Asc");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println("\n");
-	}
+        System.out.println(taps + "+----------------+ 작은 값을 임시배열에 담기");
+        System.out.printf(taps + "%s, i=%d, j=mid+1=%d, k=%d\n", Arrays.toString(numbers), i, j, k);
+        while (i <= mid && j <= right) {
+            // 작은 값을 임시배열에 넣는다.
+            System.out.printf(taps + "if (numbers[%d]=%d < numbers[%d]=%d)\n", 
+                i, numbers[i], j, numbers[j]);
+            if (numbers[i] < numbers[j]) {
+                tempArray[k] = numbers[i];
+                System.out.printf(taps + "%s, i++\n", Arrays.toString(tempArray));
+                i++;
+            } else {
+                tempArray[k] = numbers[j];
+                System.out.printf(taps + "%s, j++\n", Arrays.toString(tempArray));
+                j++;
+            }
+            k++;
+            System.out.println(taps + "k++");
+            System.out.println(taps + "------------------");
+            System.out.printf(taps + "%s, i=%d, j=%d, k=%d\n", Arrays.toString(tempArray), i, j, k);
+        }
+        System.out.println(taps + "+----------------+ 작은 값을 임시배열에 담기 작업 끝");
+        System.out.printf(taps + "%s, i=%d, j=%d, k=%d, mid=%d\n", Arrays.toString(tempArray), i, j, k, mid);
+
+        System.out.println(taps + "================== 나머지 임시배열에 담기");
+        // 값이 커서 넣지 못한 값을 임시배열에 넣는다.
+        // i > mid 라는 것은 상대적으로 j가 가리키는 값을 넣지 못했다는 것을 의미한다.
+        System.out.printf(taps + "if (i=%d > mid=%d)\n", i, mid);
+        if (i > mid) {
+            for (int m = j; m <= right; m++) {
+                tempArray[k] = numbers[m];
+                k++;
+
+                System.out.println(taps + "k++");
+                System.out.printf(taps + "오른쪽 %s\n", Arrays.toString(tempArray));
+            }
+        } else {
+            for (int m = i; m <= mid; m++) {
+                tempArray[k] = numbers[m];
+                k++;
+
+                System.out.println(taps + "k++");
+                System.out.printf(taps + "왼 쪽 %s\n", Arrays.toString(tempArray));
+            }
+        }
+        System.out.println(taps + "~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기");
+
+        // 임시배열의 값을 타겟배열에 덮어쓴다.
+        for (int m = left; m <= right; m++) {
+            numbers[m] = tempArray[m];
+        }
+
+        System.out.printf(taps + "%s\n", Arrays.toString(numbers));
+    }
+
+    private String getTaps(int depth) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= depth; i++) {
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = { 3, 5, 2, 4, 1 };
+
+        System.out.println("Original");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println("\n");
+
+        MyMergeSort2 sorter = new MyMergeSort2();
+        sorter.sort(numbers);
+
+        System.out.println("\n");
+        System.out.println("Asc");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println("\n");
+    }
 
 }
-
 ```
 
 ```
@@ -828,102 +827,99 @@ Original
 
 
 divide(0, 4)
-	<< divide(0, 2)
-		<< divide(0, 1)
-			<< divide(0, 0)
-			>> divide(1, 1)
-			++ merge(left=0, mid=0, right=1)
-			+----------------+ 작은 값을 임시배열에 담기
-			[3, 5, 2, 4, 1], i=0, j=mid+1=1, k=0
-			if (numbers[0]=3 < numbers[1]=5)
-			[3, 0, 0, 0, 0], i++
-			k++
-			------------------
-			[3, 0, 0, 0, 0], i=1, j=1, k=1
-			+----------------+ 작은 값을 임시배열에 담기 작업 끝
-			[3, 0, 0, 0, 0], i=1, j=1, k=1, mid=0
-			================== 나머지 임시배열에 담기
-			if (i=1 > mid=0)
-			k++
-			오른쪽 [3, 5, 0, 0, 0]
-			~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
-			[3, 5, 2, 4, 1]
-		>> divide(2, 2)
-		++ merge(left=0, mid=1, right=2)
-		+----------------+ 작은 값을 임시배열에 담기
-		[3, 5, 2, 4, 1], i=0, j=mid+1=2, k=0
-		if (numbers[0]=3 < numbers[2]=2)
-		[2, 0, 0, 0, 0], j++
-		k++
-		------------------
-		[2, 0, 0, 0, 0], i=0, j=3, k=1
-		+----------------+ 작은 값을 임시배열에 담기 작업 끝
-		[2, 0, 0, 0, 0], i=0, j=3, k=1, mid=1
-		================== 나머지 임시배열에 담기
-		if (i=0 > mid=1)
-		k++
-		왼 쪽 [2, 3, 0, 0, 0]
-		k++
-		왼 쪽 [2, 3, 5, 0, 0]
-		~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
-		[2, 3, 5, 4, 1]
-	>> divide(3, 4)
-		<< divide(3, 3)
-		>> divide(4, 4)
-		++ merge(left=3, mid=3, right=4)
-		+----------------+ 작은 값을 임시배열에 담기
-		[2, 3, 5, 4, 1], i=3, j=mid+1=4, k=3
-		if (numbers[3]=4 < numbers[4]=1)
-		[0, 0, 0, 1, 0], j++
-		k++
-		------------------
-		[0, 0, 0, 1, 0], i=3, j=5, k=4
-		+----------------+ 작은 값을 임시배열에 담기 작업 끝
-		[0, 0, 0, 1, 0], i=3, j=5, k=4, mid=3
-		================== 나머지 임시배열에 담기
-		if (i=3 > mid=3)
-		k++
-		왼 쪽 [0, 0, 0, 1, 4]
-		~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
-		[2, 3, 5, 1, 4]
-	++ merge(left=0, mid=2, right=4)
-	+----------------+ 작은 값을 임시배열에 담기
-	[2, 3, 5, 1, 4], i=0, j=mid+1=3, k=0
-	if (numbers[0]=2 < numbers[3]=1)
-	[1, 0, 0, 0, 0], j++
-	k++
-	------------------
-	[1, 0, 0, 0, 0], i=0, j=4, k=1
-	if (numbers[0]=2 < numbers[4]=4)
-	[1, 2, 0, 0, 0], i++
-	k++
-	------------------
-	[1, 2, 0, 0, 0], i=1, j=4, k=2
-	if (numbers[1]=3 < numbers[4]=4)
-	[1, 2, 3, 0, 0], i++
-	k++
-	------------------
-	[1, 2, 3, 0, 0], i=2, j=4, k=3
-	if (numbers[2]=5 < numbers[4]=4)
-	[1, 2, 3, 4, 0], j++
-	k++
-	------------------
-	[1, 2, 3, 4, 0], i=2, j=5, k=4
-	+----------------+ 작은 값을 임시배열에 담기 작업 끝
-	[1, 2, 3, 4, 0], i=2, j=5, k=4, mid=2
-	================== 나머지 임시배열에 담기
-	if (i=2 > mid=2)
-	k++
-	왼 쪽 [1, 2, 3, 4, 5]
-	~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
-	[1, 2, 3, 4, 5]
+    << divide(0, 2)
+        << divide(0, 1)
+            << divide(0, 0)
+            >> divide(1, 1)
+            ++ merge(left=0, mid=0, right=1)
+            +----------------+ 작은 값을 임시배열에 담기
+            [3, 5, 2, 4, 1], i=0, j=mid+1=1, k=0
+            if (numbers[0]=3 < numbers[1]=5)
+            [3, 0, 0, 0, 0], i++
+            k++
+            ------------------
+            [3, 0, 0, 0, 0], i=1, j=1, k=1
+            +----------------+ 작은 값을 임시배열에 담기 작업 끝
+            [3, 0, 0, 0, 0], i=1, j=1, k=1, mid=0
+            ================== 나머지 임시배열에 담기
+            if (i=1 > mid=0)
+            k++
+            오른쪽 [3, 5, 0, 0, 0]
+            ~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
+            [3, 5, 2, 4, 1]
+        >> divide(2, 2)
+        ++ merge(left=0, mid=1, right=2)
+        +----------------+ 작은 값을 임시배열에 담기
+        [3, 5, 2, 4, 1], i=0, j=mid+1=2, k=0
+        if (numbers[0]=3 < numbers[2]=2)
+        [2, 0, 0, 0, 0], j++
+        k++
+        ------------------
+        [2, 0, 0, 0, 0], i=0, j=3, k=1
+        +----------------+ 작은 값을 임시배열에 담기 작업 끝
+        [2, 0, 0, 0, 0], i=0, j=3, k=1, mid=1
+        ================== 나머지 임시배열에 담기
+        if (i=0 > mid=1)
+        k++
+        왼 쪽 [2, 3, 0, 0, 0]
+        k++
+        왼 쪽 [2, 3, 5, 0, 0]
+        ~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
+        [2, 3, 5, 4, 1]
+    >> divide(3, 4)
+        << divide(3, 3)
+        >> divide(4, 4)
+        ++ merge(left=3, mid=3, right=4)
+        +----------------+ 작은 값을 임시배열에 담기
+        [2, 3, 5, 4, 1], i=3, j=mid+1=4, k=3
+        if (numbers[3]=4 < numbers[4]=1)
+        [0, 0, 0, 1, 0], j++
+        k++
+        ------------------
+        [0, 0, 0, 1, 0], i=3, j=5, k=4
+        +----------------+ 작은 값을 임시배열에 담기 작업 끝
+        [0, 0, 0, 1, 0], i=3, j=5, k=4, mid=3
+        ================== 나머지 임시배열에 담기
+        if (i=3 > mid=3)
+        k++
+        왼 쪽 [0, 0, 0, 1, 4]
+        ~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
+        [2, 3, 5, 1, 4]
+    ++ merge(left=0, mid=2, right=4)
+    +----------------+ 작은 값을 임시배열에 담기
+    [2, 3, 5, 1, 4], i=0, j=mid+1=3, k=0
+    if (numbers[0]=2 < numbers[3]=1)
+    [1, 0, 0, 0, 0], j++
+    k++
+    ------------------
+    [1, 0, 0, 0, 0], i=0, j=4, k=1
+    if (numbers[0]=2 < numbers[4]=4)
+    [1, 2, 0, 0, 0], i++
+    k++
+    ------------------
+    [1, 2, 0, 0, 0], i=1, j=4, k=2
+    if (numbers[1]=3 < numbers[4]=4)
+    [1, 2, 3, 0, 0], i++
+    k++
+    ------------------
+    [1, 2, 3, 0, 0], i=2, j=4, k=3
+    if (numbers[2]=5 < numbers[4]=4)
+    [1, 2, 3, 4, 0], j++
+    k++
+    ------------------
+    [1, 2, 3, 4, 0], i=2, j=5, k=4
+    +----------------+ 작은 값을 임시배열에 담기 작업 끝
+    [1, 2, 3, 4, 0], i=2, j=5, k=4, mid=2
+    ================== 나머지 임시배열에 담기
+    if (i=2 > mid=2)
+    k++
+    왼 쪽 [1, 2, 3, 4, 5]
+    ~~~~~~~~~~~~~~~~~~ 정렬된 임시배열 값을 타겟배열에 담기
+    [1, 2, 3, 4, 5]
 
 
 Asc
 [1, 2, 3, 4, 5]
-
-
-
 ```
 
 
