@@ -506,113 +506,114 @@ intervalSort(0, 5, 1)
 
 ## Quick Sort
 
-```
+퀵 정렬은 n개의 데이터를 정렬할 때, 최악의 경우에는 O\(n2\)번의 비교를 수행하고, 평균적으로 O\(n log n\)번의 비교를 수행한다. 퀵 정렬의 내부 루프는 대부분의 컴퓨터 아키텍처에서 효율적으로 작동하도록 설계되어 있고\(그 이유는 메모리 참조가 지역화되어 있기 때문에 CPU 캐시의 히트율이 높아지기 때문이다.\), 대부분의 실질적인 데이터를 정렬할 때 제곱 시간이 걸릴 확률이 거의 없도록 알고리즘을 설계하는 것이 가능하다. 때문에 일반적인 경우 퀵 정렬은 다른 O\(n log n\) 알고리즘에 비해 훨씬 빠르게 동작한다. 
+
+```java
 package com.example.sorting;
 
 import java.util.Arrays;
 
 public class MyQuickSort {
-	private int[] numbers;
+    private int[] numbers;
 
-	private void sort(int[] numbers) {
-		this.numbers = numbers;
+    private void sort(int[] numbers) {
+        this.numbers = numbers;
 
-		System.out.printf("sort(%d, %d)\n", 0, numbers.length - 1);
-		sort(0, numbers.length - 1, 0);
-	}
+        System.out.printf("sort(%d, %d)\n", 0, numbers.length - 1);
+        sort(0, numbers.length - 1, 0);
+    }
 
-	public void sort(int left, int right, int depth) {
-		System.out.println("-------------------------------------- 시작");
-		System.out.println(Arrays.toString(numbers));
+    public void sort(int left, int right, int depth) {
+        System.out.println("-------------------------------------- 시작");
+        System.out.println(Arrays.toString(numbers));
 
-		int leftHolder = left;
-		int rightHolder = right;
-		int low = left;
-		int high = right;
-		int pivot = numbers[left];
+        int leftHolder = left;
+        int rightHolder = right;
+        int low = left;
+        int high = right;
+        int pivot = numbers[left];
 
-		while (low < high) {
-			// 피봇보다 작은 숫자 찾기
-			while (low < high && pivot <= numbers[high]) {
-				System.out.println("high--");
-				high--;
-			}
+        while (low < high) {
+            // 피봇보다 작은 숫자 찾기
+            while (low < high && pivot <= numbers[high]) {
+                System.out.println("high--");
+                high--;
+            }
 
-			if (high != low) {
-				numbers[low] = numbers[high];
-				System.out.println("피봇보다 작은 숫자 찾기\t" + Arrays.toString(numbers));
-			}
+            if (high != low) {
+                numbers[low] = numbers[high];
+                System.out.println("피봇보다 작은 숫자 찾기\t" + Arrays.toString(numbers));
+            }
 
-			// 피봇보다 큰 숫자 찾기
-			while (low < high && pivot >= numbers[low]) {
-				System.out.println("low++");
-				low++;
-			}
+            // 피봇보다 큰 숫자 찾기
+            while (low < high && pivot >= numbers[low]) {
+                System.out.println("low++");
+                low++;
+            }
 
-			if (low != high) {
-				numbers[high] = numbers[low];
-				System.out.println("피봇보다 큰 숫자 찾기\t" + Arrays.toString(numbers));
-			}
+            if (low != high) {
+                numbers[high] = numbers[low];
+                System.out.println("피봇보다 큰 숫자 찾기\t" + Arrays.toString(numbers));
+            }
 
-			System.out.printf("------- low=%d < high=%d -------\n", low, high);
-		}
+            System.out.printf("------- low=%d < high=%d -------\n", low, high);
+        }
 
-		numbers[low] = pivot;
-		/*
-		 * 이제, 피봇보다 작은 값은 왼쪽에, 큰 값은 오른쪽에 위치한다.
-		 */
-		System.out.println(Arrays.toString(numbers));
-		System.out.printf("leftHolder=%d, rightHolder=%d, low=%d, high=%d\n", 
-			leftHolder, rightHolder, low, high);
-		System.out.println("-------------------------------------- 종료");
-		System.out.println();
+        numbers[low] = pivot;
+        /*
+         * 이제, 피봇보다 작은 값은 왼쪽에, 큰 값은 오른쪽에 위치한다.
+         */
+        System.out.println(Arrays.toString(numbers));
+        System.out.printf("leftHolder=%d, rightHolder=%d, low=%d, high=%d\n", 
+            leftHolder, rightHolder, low, high);
+        System.out.println("-------------------------------------- 종료");
+        System.out.println();
 
-		String taps = getTaps(depth);
+        String taps = getTaps(depth);
 
-		if (leftHolder < low) {
-			// 피봇보다 작은 숫자들을 대상으로 정렬을 진행한다.
-			System.out.printf(taps + "<< sort(%d, %d)\n", leftHolder, low - 1);
-			sort(leftHolder, low - 1, depth + 1);
-		} else {
-			System.out.println(taps + "<< [ x ]");
-		}
+        if (leftHolder < low) {
+            // 피봇보다 작은 숫자들을 대상으로 정렬을 진행한다.
+            System.out.printf(taps + "<< sort(%d, %d)\n", leftHolder, low - 1);
+            sort(leftHolder, low - 1, depth + 1);
+        } else {
+            System.out.println(taps + "<< [ x ]");
+        }
 
-		if (low < rightHolder) {
-			// 피봇보다 큰 숫자들을 대상으로 정렬을 진행한다.
-			System.out.printf(taps + ">> sort(%d, %d)\n", low + 1, rightHolder);
-			sort(low + 1, rightHolder, depth + 1);
-		} else {
-			System.out.println(taps + ">> [ x ]");
-		}
+        if (low < rightHolder) {
+            // 피봇보다 큰 숫자들을 대상으로 정렬을 진행한다.
+            System.out.printf(taps + ">> sort(%d, %d)\n", low + 1, rightHolder);
+            sort(low + 1, rightHolder, depth + 1);
+        } else {
+            System.out.println(taps + ">> [ x ]");
+        }
 
-	}
+    }
 
-	private String getTaps(int depth) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i <= depth; i++) {
-			sb.append("\t");
-		}
-		return sb.toString();
-	}
+    private String getTaps(int depth) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= depth; i++) {
+            sb.append("\t");
+        }
+        return sb.toString();
+    }
 
-	public static void main(String[] args) {
-		int[] numbers = { 3, 5, 2, 4, 1 };
-		System.out.println("Original");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println("\n");
+    public static void main(String[] args) {
+        int[] numbers = { 3, 5, 2, 4, 1 };
+        System.out.println("Original");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println("\n");
 
-		MyQuickSort sorter = new MyQuickSort();
-		sorter.sort(numbers);
-		
-		System.out.println("\n");
-		System.out.println("==========================================");
-		System.out.println("Asc");
-		System.out.println(Arrays.toString(numbers));
-		System.out.println("\n");
-	}
+        MyQuickSort sorter = new MyQuickSort();
+        sorter.sort(numbers);
+
+        System.out.println("\n");
+        System.out.println("==========================================");
+        System.out.println("Asc");
+        System.out.println(Arrays.toString(numbers));
+        System.out.println("\n");
+    }
 
 }
-
 ```
 
 ```
@@ -623,20 +624,20 @@ Original
 sort(0, 4)
 -------------------------------------- 시작
 [3, 5, 2, 4, 1]
-피봇보다 작은 숫자 찾기	[1, 5, 2, 4, 1]
+피봇보다 작은 숫자 찾기    [1, 5, 2, 4, 1]
 low++
-피봇보다 큰 숫자 찾기	[1, 5, 2, 4, 5]
+피봇보다 큰 숫자 찾기    [1, 5, 2, 4, 5]
 ------- low=1 < high=4 -------
 high--
 high--
-피봇보다 작은 숫자 찾기	[1, 2, 2, 4, 5]
+피봇보다 작은 숫자 찾기    [1, 2, 2, 4, 5]
 low++
 ------- low=2 < high=2 -------
 [1, 2, 3, 4, 5]
 leftHolder=0, rightHolder=4, low=2, high=2
 -------------------------------------- 종료
 
-	<< sort(0, 1)
+    << sort(0, 1)
 -------------------------------------- 시작
 [1, 2, 3, 4, 5]
 high--
@@ -645,17 +646,17 @@ high--
 leftHolder=0, rightHolder=1, low=0, high=0
 -------------------------------------- 종료
 
-		<< [ x ]
-		>> sort(1, 1)
+        << [ x ]
+        >> sort(1, 1)
 -------------------------------------- 시작
 [1, 2, 3, 4, 5]
 [1, 2, 3, 4, 5]
 leftHolder=1, rightHolder=1, low=1, high=1
 -------------------------------------- 종료
 
-			<< [ x ]
-			>> [ x ]
-	>> sort(3, 4)
+            << [ x ]
+            >> [ x ]
+    >> sort(3, 4)
 -------------------------------------- 시작
 [1, 2, 3, 4, 5]
 high--
@@ -664,24 +665,21 @@ high--
 leftHolder=3, rightHolder=4, low=3, high=3
 -------------------------------------- 종료
 
-		<< [ x ]
-		>> sort(4, 4)
+        << [ x ]
+        >> sort(4, 4)
 -------------------------------------- 시작
 [1, 2, 3, 4, 5]
 [1, 2, 3, 4, 5]
 leftHolder=4, rightHolder=4, low=4, high=4
 -------------------------------------- 종료
 
-			<< [ x ]
-			>> [ x ]
+            << [ x ]
+            >> [ x ]
 
 
 ==========================================
 Asc
 [1, 2, 3, 4, 5]
-
-
-
 ```
 
 
