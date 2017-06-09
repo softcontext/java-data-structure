@@ -365,5 +365,145 @@ low=6, high=6, mid=6 ==> 대상 찾음 return 6
 idx = 6
 ```
 
+Shell Sort
+
+```java
+package com.example.sorting;
+
+import java.util.Arrays;
+
+public class MyShellSort2 {
+	private int[] numbers;
+
+	public void sort(int[] array) {
+		numbers = array;
+
+		int size = numbers.length;
+		int interval = size / 2;
+
+		while (interval >= 1) {
+			for (int i = 0; i < interval; i++) {
+				System.out.printf("intervalSort(%d, %d, %d)\n", i, size - 1, interval);
+				System.out.println("------------------------------------------------");
+				intervalSort(i, size - 1, interval);
+				interval = interval / 2;
+			}
+		}
+	}
+
+	public void intervalSort(int begin, int end, int interval) {
+		int j, item;
+
+		for (int i = begin + interval; i <= end; i = i + interval) {
+			System.out.printf("\tfor (int i = %d; %d <= %d; i = %d + %d)\n", i, i, end, i, interval);
+			
+			System.out.println("\t\t"+Arrays.toString(numbers));
+			
+			item = numbers[i];
+			System.out.printf("\t\titem = %d\n", numbers[i]);
+
+			System.out.printf("\t\t==> for (j = %d; %d >= %d && %d < %d; j = %d - %d)\n", 
+				i - interval, i - interval, begin, item, numbers[i - interval], i - interval, interval);
+			for (j = i - interval; j >= begin && item < numbers[j]; j = j - interval) {
+				System.out.printf("\t\tfor (j = %d; %d >= %d && %d < %d; j = %d - %d)\n", 
+					j, j, begin, item, numbers[j], j, interval);
+				
+				numbers[j + interval] = numbers[j];
+				System.out.printf("\t\t\tnumbers[%d] = numbers[%d]\n", j + interval, j);
+				System.out.println();
+			}
+
+			numbers[j + interval] = item;
+			System.out.printf("\t\tnumbers[%d] = %d\n", j + interval, item);
+			
+			System.out.println("\t\t"+Arrays.toString(numbers));
+			System.out.println();
+		}
+	}
+
+	public static void main(String[] args) {
+		int[] numbers = { 5, 4, 3, 2, 1, 6 };
+
+		MyShellSort2 sorter = new MyShellSort2();
+		sorter.sort(numbers);
+		System.out.println("------------------------------------------------");
+		System.out.println(Arrays.toString(numbers) + "\n");
+	}
+
+}
+
+```
+
+```
+intervalSort(0, 5, 3)
+------------------------------------------------
+	for (int i = 3; 3 <= 5; i = 3 + 3)
+		[5, 4, 3, 2, 1, 6]
+		item = 2
+		==> for (j = 0; 0 >= 0 && 2 < 5; j = 0 - 3)
+		for (j = 0; 0 >= 0 && 2 < 5; j = 0 - 3)
+			numbers[3] = numbers[0]
+
+		numbers[0] = 2
+		[2, 4, 3, 5, 1, 6]
+
+intervalSort(0, 5, 1)
+------------------------------------------------
+	for (int i = 1; 1 <= 5; i = 1 + 1)
+		[2, 4, 3, 5, 1, 6]
+		item = 4
+		==> for (j = 0; 0 >= 0 && 4 < 2; j = 0 - 1)
+		numbers[1] = 4
+		[2, 4, 3, 5, 1, 6]
+
+	for (int i = 2; 2 <= 5; i = 2 + 1)
+		[2, 4, 3, 5, 1, 6]
+		item = 3
+		==> for (j = 1; 1 >= 0 && 3 < 4; j = 1 - 1)
+		for (j = 1; 1 >= 0 && 3 < 4; j = 1 - 1)
+			numbers[2] = numbers[1]
+
+		numbers[1] = 3
+		[2, 3, 4, 5, 1, 6]
+
+	for (int i = 3; 3 <= 5; i = 3 + 1)
+		[2, 3, 4, 5, 1, 6]
+		item = 5
+		==> for (j = 2; 2 >= 0 && 5 < 4; j = 2 - 1)
+		numbers[3] = 5
+		[2, 3, 4, 5, 1, 6]
+
+	for (int i = 4; 4 <= 5; i = 4 + 1)
+		[2, 3, 4, 5, 1, 6]
+		item = 1
+		==> for (j = 3; 3 >= 0 && 1 < 5; j = 3 - 1)
+		for (j = 3; 3 >= 0 && 1 < 5; j = 3 - 1)
+			numbers[4] = numbers[3]
+
+		for (j = 2; 2 >= 0 && 1 < 4; j = 2 - 1)
+			numbers[3] = numbers[2]
+
+		for (j = 1; 1 >= 0 && 1 < 3; j = 1 - 1)
+			numbers[2] = numbers[1]
+
+		for (j = 0; 0 >= 0 && 1 < 2; j = 0 - 1)
+			numbers[1] = numbers[0]
+
+		numbers[0] = 1
+		[1, 2, 3, 4, 5, 6]
+
+	for (int i = 5; 5 <= 5; i = 5 + 1)
+		[1, 2, 3, 4, 5, 6]
+		item = 6
+		==> for (j = 4; 4 >= 0 && 6 < 5; j = 4 - 1)
+		numbers[5] = 6
+		[1, 2, 3, 4, 5, 6]
+
+------------------------------------------------
+[1, 2, 3, 4, 5, 6]
+
+
+```
+
 
 
