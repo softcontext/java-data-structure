@@ -307,152 +307,152 @@ nums[2][2] = 9
   -------
 ```
 
-## Stack 
+## Stack
 
 ```java
 package com.example.sample1stack;
 
 public interface Stack {
-	boolean isEmpty();
-	void push(Object item);
-	Object pop();
-	boolean delete();
-	Object peek();
-	int size();
+    boolean isEmpty();
+    void push(Object item);
+    Object pop();
+    boolean delete();
+    Object peek();
+    int size();
 }
-
 ```
+
+## Array Stack 
 
 ```java
 package com.example.sample1stack;
 
 public class ArrayStack implements Stack {
-	private int top = -1;
-	private Object[] items = new Object[10];
+    private int top = -1;
+    private Object[] items = new Object[10];
 
-	private Object[] sizeUpAndCopy() {
-		Object[] temp = new Object[items.length+10];
-		for (int i = 0; i < items.length; i++) {
-			temp[i] = items[i];
-		}
-		return temp;
-	}
+    private Object[] sizeUpAndCopy() {
+        Object[] temp = new Object[items.length+10];
+        for (int i = 0; i < items.length; i++) {
+            temp[i] = items[i];
+        }
+        return temp;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		return top == -1;
-	}
-	
-	private boolean isFull() {
-		return top == (items.length - 1);
-	}
+    @Override
+    public boolean isEmpty() {
+        return top == -1;
+    }
 
-	@Override
-	public void push(Object item) {
-		if (isFull()) {
-			items = sizeUpAndCopy();
-			items[++top] = item;
-		} else {
-			items[++top] = item;
-		}
-	}
+    private boolean isFull() {
+        return top == (items.length - 1);
+    }
 
-	@Override
-	public Object pop() {
-		if (isEmpty()) {
-			return null;
-		} else {
-			return items[top--];
-		}
-	}
+    @Override
+    public void push(Object item) {
+        if (isFull()) {
+            items = sizeUpAndCopy();
+            items[++top] = item;
+        } else {
+            items[++top] = item;
+        }
+    }
 
-	@Override
-	public boolean delete() {
-		if (isEmpty()) {
-			return false;
-		} else {
-			pop();
-			return true;
-		}
-	}
+    @Override
+    public Object pop() {
+        if (isEmpty()) {
+            return null;
+        } else {
+            return items[top--];
+        }
+    }
 
-	@Override
-	public Object peek() {
-		if (isEmpty()) {
-			return null;
-		} else {
-			return items[top];
-		}
-	}
+    @Override
+    public boolean delete() {
+        if (isEmpty()) {
+            return false;
+        } else {
+            pop();
+            return true;
+        }
+    }
 
-	@Override
-	public int size() {
-		return top + 1;
-	}
+    @Override
+    public Object peek() {
+        if (isEmpty()) {
+            return null;
+        } else {
+            return items[top];
+        }
+    }
 
-	@Override
-	public String toString() {
-		if (isEmpty()) {
-			return "[t --> null]";
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("[t --> ");
-		
-		for (int i = top; i >= 0; i--) {
-			if (!(i == top)) {
-				sb.append(",");
-			}
-			sb.append(items[i].toString());
-		}
-		
-		sb.append("]");
-		return sb.toString();
-	}
-	
-	public static void main(String[] args) {
-		basicTest();
-		sizeUpTest();
-	}
+    @Override
+    public int size() {
+        return top + 1;
+    }
 
-	private static void sizeUpTest() {
-		System.out.println("------------");
-		ArrayStack stack = new ArrayStack();
-		System.out.println(stack.size());
-		System.out.println(stack);
-		
-		for (int i = 0; i < 21; i++) {
-			stack.push(i);
-		}
-		
-		System.out.println(stack.size());
-		System.out.println(stack);
-	}
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[t --> null]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[t --> ");
 
-	private static void basicTest() {
-		ArrayStack stack = new ArrayStack();
-		stack.push(10);
-		stack.push(20);
-		stack.push(30);
+        for (int i = top; i >= 0; i--) {
+            if (!(i == top)) {
+                sb.append(",");
+            }
+            sb.append(items[i].toString());
+        }
 
-		System.out.println(stack.peek());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.pop());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.delete());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.isEmpty());
-		System.out.println(stack.pop());
-		System.out.println(stack.isEmpty());
-		System.out.println(stack);
-	}
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        basicTest();
+        sizeUpTest();
+    }
+
+    private static void sizeUpTest() {
+        System.out.println("------------");
+        ArrayStack stack = new ArrayStack();
+        System.out.println(stack.size());
+        System.out.println(stack);
+
+        for (int i = 0; i < 21; i++) {
+            stack.push(i);
+        }
+
+        System.out.println(stack.size());
+        System.out.println(stack);
+    }
+
+    private static void basicTest() {
+        ArrayStack stack = new ArrayStack();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack.peek());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.pop());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.delete());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.pop());
+        System.out.println(stack.isEmpty());
+        System.out.println(stack);
+    }
 }
-
 ```
 
 ```
@@ -479,140 +479,139 @@ true
 [t --> 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
 ```
 
-## LinkedStack 
+## LinkedStack
 
 ```java
 package com.example.sample1stack;
 
 public class LinkedStack implements Stack {
-	private StackNode top;
-	
-	@Override
-	public boolean isEmpty() {
-		return top == null;
-	}
+    private StackNode top;
 
-	@Override
-	public void push(Object item) {
-		StackNode node = new StackNode();
-		node.data = item;
-		node.link = top;
-		
-		top = node;
-	}
+    @Override
+    public boolean isEmpty() {
+        return top == null;
+    }
 
-	@Override
-	public Object pop() {
-		if (isEmpty()) {
-			return null;
-		}
-		Object item = top.data;
-		top = top.link;
-		return item;
-	}
+    @Override
+    public void push(Object item) {
+        StackNode node = new StackNode();
+        node.data = item;
+        node.link = top;
 
-	@Override
-	public boolean delete() {
-		if (isEmpty()) {
-			return false;
-		}
-		top = top.link;
-		return true;
-	}
+        top = node;
+    }
 
-	@Override
-	public Object peek() {
-		if (isEmpty()) {
-			return null;
-		}
-		return top.data;
-	}
+    @Override
+    public Object pop() {
+        if (isEmpty()) {
+            return null;
+        }
+        Object item = top.data;
+        top = top.link;
+        return item;
+    }
 
-	@Override
-	public int size() {
-		if (isEmpty()) {
-			return 0;
-		}
-		int count = 0;
-		StackNode temp = top;
-		while (temp != null) {
-			count++;
-			temp = temp.link;
-		}
-		return count;
-	}
+    @Override
+    public boolean delete() {
+        if (isEmpty()) {
+            return false;
+        }
+        top = top.link;
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		if (isEmpty()) {
-			return "[t --> null]";
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append("[t --> ");
-		
-		StackNode temp = top;
-		while (temp != null) {
-			sb.append(temp.data);
-			temp = temp.link;
-			
-			if (temp != null) {
-				sb.append(",");
-			}
-		}
-		
-		sb.append("]");
-		return sb.toString();
-	}
-	
-	public static void main(String[] args) {
-		basicTest();
-		noBoundTest();
-	}
-	
-	private static void noBoundTest() {
-		System.out.println("------------");
-		LinkedStack stack = new LinkedStack();
-		System.out.println(stack.size());
-		System.out.println(stack);
-		
-		for (int i = 0; i < 21; i++) {
-			stack.push(i);
-		}
-		
-		System.out.println(stack.size());
-		System.out.println(stack);
-	}
+    @Override
+    public Object peek() {
+        if (isEmpty()) {
+            return null;
+        }
+        return top.data;
+    }
 
-	private static void basicTest() {
-		LinkedStack stack = new LinkedStack();
-		stack.push(10);
-		stack.push(20);
-		stack.push(30);
+    @Override
+    public int size() {
+        if (isEmpty()) {
+            return 0;
+        }
+        int count = 0;
+        StackNode temp = top;
+        while (temp != null) {
+            count++;
+            temp = temp.link;
+        }
+        return count;
+    }
 
-		System.out.println(stack.peek());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.pop());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.delete());
-		System.out.println(stack.size());
-		System.out.println(stack);
-		System.out.println("------------");
-		System.out.println(stack.isEmpty());
-		System.out.println(stack.pop());
-		System.out.println(stack.isEmpty());
-		System.out.println(stack);
-	}
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[t --> null]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[t --> ");
+
+        StackNode temp = top;
+        while (temp != null) {
+            sb.append(temp.data);
+            temp = temp.link;
+
+            if (temp != null) {
+                sb.append(",");
+            }
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        basicTest();
+        noBoundTest();
+    }
+
+    private static void noBoundTest() {
+        System.out.println("------------");
+        LinkedStack stack = new LinkedStack();
+        System.out.println(stack.size());
+        System.out.println(stack);
+
+        for (int i = 0; i < 21; i++) {
+            stack.push(i);
+        }
+
+        System.out.println(stack.size());
+        System.out.println(stack);
+    }
+
+    private static void basicTest() {
+        LinkedStack stack = new LinkedStack();
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack.peek());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.pop());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.delete());
+        System.out.println(stack.size());
+        System.out.println(stack);
+        System.out.println("------------");
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.pop());
+        System.out.println(stack.isEmpty());
+        System.out.println(stack);
+    }
 }
 
 class StackNode {
-	Object data;
-	StackNode link;
+    Object data;
+    StackNode link;
 }
-
 ```
 
 ```
@@ -637,6 +636,43 @@ true
 [t --> null]
 21
 [t --> 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
+```
+
+## Reverse Word 
+
+```
+package com.example.sample1stack;
+
+public class ReverseWord {
+
+	public static void main(String[] args) {
+		String txt = "hello";
+		
+		ArrayStack v = new ArrayStack();
+		
+		for (int i = 0; i < txt.length(); i++) {
+			v.push(txt.charAt(i));
+		}
+		
+		char[] temp = new char[txt.length()];
+		
+		for (int i = 0; i < txt.length(); i++) {
+			temp[i] = (char) v.pop();
+		}
+		
+		String result = new String(temp);
+		
+		System.out.println("txt = "+txt);
+		System.out.println("result = "+result);
+	}
+
+}
+
+```
+
+```
+txt = hello
+result = olleh
 
 ```
 
