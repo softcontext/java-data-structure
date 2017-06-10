@@ -322,7 +322,7 @@ public interface Stack {
 }
 ```
 
-## Array Stack 
+## Array Stack
 
 ```java
 package com.example.sample1stack;
@@ -638,42 +638,40 @@ true
 [t --> 20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
 ```
 
-## Reverse Word 
+## Reverse Word
 
-```
+```java
 package com.example.sample1stack;
 
 public class ReverseWord {
 
-	public static void main(String[] args) {
-		String txt = "hello";
-		
-		ArrayStack v = new ArrayStack();
-		
-		for (int i = 0; i < txt.length(); i++) {
-			v.push(txt.charAt(i));
-		}
-		
-		char[] temp = new char[txt.length()];
-		
-		for (int i = 0; i < txt.length(); i++) {
-			temp[i] = (char) v.pop();
-		}
-		
-		String result = new String(temp);
-		
-		System.out.println("txt = "+txt);
-		System.out.println("result = "+result);
-	}
+    public static void main(String[] args) {
+        String txt = "hello";
+
+        ArrayStack v = new ArrayStack();
+
+        for (int i = 0; i < txt.length(); i++) {
+            v.push(txt.charAt(i));
+        }
+
+        char[] temp = new char[txt.length()];
+
+        for (int i = 0; i < txt.length(); i++) {
+            temp[i] = (char) v.pop();
+        }
+
+        String result = new String(temp);
+
+        System.out.println("txt = "+txt);
+        System.out.println("result = "+result);
+    }
 
 }
-
 ```
 
 ```
 txt = hello
 result = olleh
-
 ```
 
 
