@@ -73,7 +73,7 @@ hello 5
 
 코드적인 배리에이션 예제
 
-```
+```java
 public class Test {
 
     public static void main(String[] args) {
