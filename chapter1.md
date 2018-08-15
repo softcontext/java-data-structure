@@ -71,88 +71,84 @@ hello 4
 hello 5
 ```
 
-
-
 코드적인 배리에이션 예제
 
 ```
 public class Test {
 
-	public static void main(String[] args) {
-		// 4! = 1 x 2 x 3 x 4 = 24
-		
-		method1();
-		
-		method2();
-		
-		method3();
-		
-		method4();
-		
-		method5();
-	}
+    public static void main(String[] args) {
+        // 4! = 1 x 2 x 3 x 4 = 24
 
-	// 재귀호출로 구하기 #2.1 : if문 대신 삼항연산자를 사용할 뿐 크게 다를 것은 없다.
-	private static void method5() {
-		int result = factor2(4, 1);
-		System.out.println(result);
-	}
+        method1();
 
-	private static int factor2(int n, int result) {
-		return n == 1 ? result : factor(n - 1, result * n);
-	}
+        method2();
 
-	// 재귀호출로 구하기 #2
-	private static void method4() {
-		int result = factor(4, 1);
-		System.out.println(result);
-	}
+        method3();
 
-	// TCR: 자바는 아직 지원하지 않는다. 자바스크립트는 지원하므로 메모리를 아낄 수 있다.
-	private static int factor(int n, int result) { 
-		if (n == 1) {
-			return result;
-		}
-		return factor(n - 1, result * n); 
-		// [(4, 1) -> return [(3, 1*4) -> return [(2, 1*4*3) -> return [(1, 1*4*3*2) -> return 24]]]]
-	}
+        method4();
 
-	// 재귀호출로 구하기 #1
-	private static void method3() {
-		int result = factorial(4);
-		System.out.println(result);
-	}
+        method5();
+    }
 
-	private static int factorial(int n) {
-		if (n == 1) {
-			return 1;
-		}
-		return n * factorial(n - 1); 
-		// [(4) -> return 4 * [(3) -> return 3 * [(2) -> return 2 * [(1) -> return 1]]]]
-	}
+    // 재귀호출로 구하기 #2.1 : if문 대신 삼항연산자를 사용할 뿐 크게 다를 것은 없다.
+    private static void method5() {
+        int result = factor2(4, 1);
+        System.out.println(result);
+    }
 
-	// 반복문으로 구하기 #2
-	private static void method2() {
-		int result = 1;
-		for (int i = 4; i >= 1; i--) {
-			result *= i;
-		}
-		System.out.println(result);
-	}
+    private static int factor2(int n, int result) {
+        return n == 1 ? result : factor(n - 1, result * n);
+    }
 
-	// 반복문으로 구하기 #1
-	private static void method1() {
-		int result = 1;
-		for (int i = 1; i <= 4; i++) {
-			result *= i;
-		}
-		System.out.println(result);
-	}
+    // 재귀호출로 구하기 #2
+    private static void method4() {
+        int result = factor(4, 1);
+        System.out.println(result);
+    }
+
+    // TCR: 자바는 아직 지원하지 않는다. 자바스크립트는 지원하므로 메모리를 아낄 수 있다.
+    private static int factor(int n, int result) { 
+        if (n == 1) {
+            return result;
+        }
+        return factor(n - 1, result * n); 
+        // [(4, 1) -> return [(3, 1*4) -> return [(2, 1*4*3) -> return [(1, 1*4*3*2) -> return 24]]]]
+    }
+
+    // 재귀호출로 구하기 #1
+    private static void method3() {
+        int result = factorial(4);
+        System.out.println(result);
+    }
+
+    private static int factorial(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        return n * factorial(n - 1); 
+        // [(4) -> return 4 * [(3) -> return 3 * [(2) -> return 2 * [(1) -> return 1]]]]
+    }
+
+    // 반복문으로 구하기 #2
+    private static void method2() {
+        int result = 1;
+        for (int i = 4; i >= 1; i--) {
+            result *= i;
+        }
+        System.out.println(result);
+    }
+
+    // 반복문으로 구하기 #1
+    private static void method1() {
+        int result = 1;
+        for (int i = 1; i <= 4; i++) {
+            result *= i;
+        }
+        System.out.println(result);
+    }
 
 }
 ```
-
-
 
 Recursive Example 3
 
